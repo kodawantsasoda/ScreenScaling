@@ -14,15 +14,6 @@ const int VIRTUAL_SCREEN_HEIGHT = 180;
 //this is the "canvas" we will be rendering to, and the initial design resolution for our application
 RenderTexture2D virtualCanvas;
 
-//for grid drawing... optional
-const int GRID_BOX_DIM = 16;
-
-//dimensions for our actual screen resolution
-int screenWidth = 320;
-int screenHeight = 180;
-int w = screenWidth;
-int h = screenHeight;
-
 //scaling for determining size and position for textures
 float scale = 1.0f;
 
