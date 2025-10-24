@@ -93,12 +93,6 @@ int main()
 
 	while (!WindowShouldClose()) 
 	{
-		if (IsWindowResized()) 
-		{
-			SetWindowPosition(GetWindowPosition().x + 1, GetWindowPosition().y + 1);
-			SetWindowPosition(GetWindowPosition().x - 1, GetWindowPosition().y - 1);
-		}
-
 		MouseScaleHandler();
 		/*****************************************************
 		VIRTUAL SCREEN DRAWING*/
