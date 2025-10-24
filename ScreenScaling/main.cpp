@@ -25,8 +25,11 @@ Vector2 virtualMousePos{ 0, 0 };
 
 const Rectangle VIRTUAL_RES_RECT = { 0.0f, 0.0f, (float)VIRTUAL_SCREEN_WIDTH, (float)-VIRTUAL_SCREEN_HEIGHT };
 
+//demoing with a texture
+Texture2D playerDemo;
+
 //initializing the window and preparing our virtual canvas to be drawn into
-void Init() 
+void WindowInit() 
 {
 	//window initialization
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -36,6 +39,9 @@ void Init()
 	virtualCanvas = LoadRenderTexture(VIRTUAL_SCREEN_WIDTH, VIRTUAL_SCREEN_HEIGHT);
 	//Preparing our virtual texture to be drawn onto
 	SetTextureFilter(virtualCanvas.texture, TEXTURE_FILTER_POINT);
+
+	//demoing with a texture
+	playerDemo = LoadTexture("Assets/Alien.png");
 }
 
 void DrawVirtualResolution() 
@@ -78,33 +84,29 @@ void DetermineVirtualMouse()
 	virtualMousePos = Vector2Clamp(virtualMousePos, ZERO_POS, VIRTUAL_RES_BOUNDS);
 }
 
-void MouseScaleHandler()
+void DrawCanvas() 
 {
 	DetermineScale();
 	DetermineVirtualMouse();
+	/*****************************************************
+	VIRTUAL SCREEN DRAWING*/
+	BeginTextureMode(virtualCanvas);
+	ClearBackground(BLACK);
+
+	//ADD STUFF TO DRAW HERE!
+	DrawTextureEx(playerDemo, ZERO_POS, 0, 1.0f, WHITE);
+	EndTextureMode();
+	/*END VIRTUAL RESOLUTION DRAWING
+	*****************************************************/
 }
 
 int main() 
 {
-	Init();
-	
-	//demoing with a texture
-	Texture2D playerDemo = LoadTexture("Assets/Alien.png");
+	WindowInit();
 
 	while (!WindowShouldClose()) 
 	{
-		MouseScaleHandler();
-		/*****************************************************
-		VIRTUAL SCREEN DRAWING*/
-		BeginTextureMode(virtualCanvas);
-		ClearBackground(BLACK);
-
-		//ADD STUFF TO DRAW HERE!
-		DrawTextureEx(playerDemo, ZERO_POS, 0, 1.0f, WHITE);
-		EndTextureMode();
-		/*END VIRTUAL RESOLUTION DRAWING
-		*****************************************************/
-
+		DrawCanvas();
 		/*****************************************************
 		DRAWING VIRTUAL CANVAS ONTO CURRENT SCREEN RESOLUTION*/
 		BeginDrawing();
